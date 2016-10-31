@@ -9,32 +9,32 @@
 import UIKit
 import ios_curve_interpolation
 
-enum CurveType {
+public enum CurveType {
     case catmull_Rom(tanMagnitude: Float)
     case hermite
     case rounded(roundness: Float)
 }
 
-enum TouchMode {
+public enum TouchMode {
     case Modify
     case Inspect
 }
 
 public class PolarView: UIView {
 
-    var touchMode: TouchMode = .Inspect
-    var nbLevels: UInt = 4
-    var nbRays: UInt = 6
-    var circleColor = UIColor.black
-    var rayColor = UIColor.black
-    var pointColor = UIColor.red
-    var inspectPointColor = UIColor.blue
-    var inspectPointRadius: CGFloat = 5
-    var curveType: CurveType = .rounded(roundness: 0)
+    public var touchMode: TouchMode = .Inspect
+    public var nbLevels: UInt = 4
+    public var nbRays: UInt = 6
+    public var circleColor = UIColor.black
+    public var rayColor = UIColor.black
+    public var pointColor = UIColor.red
+    public var inspectPointColor = UIColor.blue
+    public var inspectPointRadius: CGFloat = 5
+    public var curveType: CurveType = .rounded(roundness: 0)
 
-    var polarPoints = [PolarPoint]()
-    var polarForms = [PolarForm]()
-    var inspectPoint: PolarPoint?
+    public var polarPoints = [PolarPoint]()
+    public var polarForms = [PolarForm]()
+    public var inspectPoint: PolarPoint?
 
     private var circles = [UIBezierPath]()
     private var rays = [UIBezierPath]()
