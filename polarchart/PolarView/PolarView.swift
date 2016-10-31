@@ -52,7 +52,7 @@ public class PolarView: UIView {
     private var animating = false
     private var selectedRay: UInt?
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         self.layer.addSublayer(formLayer)
@@ -65,7 +65,7 @@ public class PolarView: UIView {
 
     // MARK - Layout
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         self.refresh()
     }
 
@@ -209,7 +209,7 @@ public class PolarView: UIView {
 
     // MARK - Draw
 
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         // Circles
         circleColor.setStroke()
         for path in self.circles {
@@ -225,7 +225,7 @@ public class PolarView: UIView {
 
     // MARK - Touch
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let t = touch {
             switch self.touchMode {
@@ -240,7 +240,7 @@ public class PolarView: UIView {
         }
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let t = touch {
             switch self.touchMode {
@@ -255,13 +255,13 @@ public class PolarView: UIView {
         }
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         selectedRay = nil
         self.inspectPoint = nil
         self.refresh()
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         selectedRay = nil
         self.inspectPoint = nil
         self.refresh()
