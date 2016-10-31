@@ -85,7 +85,7 @@ public class PolarView: UIView {
                                            endAngle: 2 * CGFloat.pi,
                                            clockwise: true)
 
-            self.dottedStrokeFor(path: circle, dotSize: 1, dotSpacing: 3)
+//            self.dottedStrokeFor(path: circle, dotSize: 1, dotSpacing: 3)
 
             circles.append(circle)
         }
@@ -104,7 +104,7 @@ public class PolarView: UIView {
             ray.addLine(to: CGPoint(x: x, y: y))
             ray.close()
 
-            self.dottedStrokeFor(path: ray, dotSize: 1, dotSpacing: 3)
+//            self.dottedStrokeFor(path: ray, dotSize: 1, dotSpacing: 3)
 
             rays.append(ray)
         }

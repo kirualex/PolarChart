@@ -13,7 +13,7 @@ public class PolarPoint: NSObject {
     var ray: UInt = 0
     var path = UIBezierPath()
 
-    init(level: UInt, ray:UInt) {
+    public init(level: UInt, ray:UInt) {
         self.level = level
         self.ray = ray
     }
@@ -40,7 +40,7 @@ public class PolarPoint: NSObject {
         return CGPoint(x: x, y: y)
     }
 
-    func isValidFor(polarView: PolarView) -> Bool{
+    public func isValidFor(polarView: PolarView) -> Bool{
         return self.level <= polarView.nbLevels && self.ray <= polarView.nbRays
     }
 }

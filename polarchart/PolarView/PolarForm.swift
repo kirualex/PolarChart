@@ -13,11 +13,11 @@ public class PolarForm: NSObject {
     var color = UIColor.black
     var path = UIBezierPath()
 
-    init(polarPoints: [PolarPoint]) {
+    public init(polarPoints: [PolarPoint]) {
         self.polarPoints = polarPoints
     }
 
-    func isValidFor(polarView: PolarView) -> Bool{
+    public func isValidFor(polarView: PolarView) -> Bool{
         var rayIndexes = Set<UInt>()
         for i in 0...polarView.nbRays-1 {
             rayIndexes.insert(i)
