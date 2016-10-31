@@ -69,7 +69,7 @@ public class PolarView: UIView {
         self.refresh()
     }
 
-    func refresh() {
+    public func refresh() {
 
         diameter = min(self.frame.width, self.frame.height) - 10
         radius = diameter/2
