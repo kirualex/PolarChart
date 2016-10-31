@@ -20,7 +20,7 @@ enum TouchMode {
     case Inspect
 }
 
-class PolarView: UIView {
+public class PolarView: UIView {
 
     var touchMode: TouchMode = .Inspect
     var nbLevels: UInt = 4

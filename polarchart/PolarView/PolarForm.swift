@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PolarForm: NSObject {
+public class PolarForm: NSObject {
     var polarPoints = [PolarPoint]()
     var color = UIColor.black
     var path = UIBezierPath()

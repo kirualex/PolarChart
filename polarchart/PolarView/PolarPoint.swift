@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PolarPoint: NSObject {
+public class PolarPoint: NSObject {
     var level: UInt = 0
     var ray: UInt = 0
     var path = UIBezierPath()
