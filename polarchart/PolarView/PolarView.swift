@@ -43,7 +43,7 @@ public class PolarView: UIView {
     private(set) var radius: CGFloat = 0
     private(set) var realCenter = CGPoint(x:0, y:0)
 
-    private var formLayer = CAGradientLayer()
+    private var formLayer = RadialGradientLayer()
     private var formLayerMask = CAShapeLayer()
     private var inspectPointLayer = CAGradientLayer()
     private var inspectPointLayerMask = CAShapeLayer()
@@ -152,8 +152,9 @@ public class PolarView: UIView {
 
             // Forms
             formLayer.frame = self.bounds
-            formLayer.colors = [UIColor(white: 1, alpha: 0.85).cgColor, form.color.cgColor]
+            formLayer.colors = form.colors
             formLayerMask.path = formPath.cgPath
+            formLayer.setNeedsDisplay()
 
             // Forms animation
             CATransaction.begin()
