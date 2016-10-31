@@ -9,9 +9,9 @@
 import UIKit
 
 public class PolarPoint: NSObject {
-    var level: UInt = 0
-    var ray: UInt = 0
-    var path = UIBezierPath()
+    public var level: UInt = 0
+    public var ray: UInt = 0
+    public var path = UIBezierPath()
 
     public init(level: UInt, ray:UInt) {
         self.level = level
