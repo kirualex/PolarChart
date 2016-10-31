@@ -1,0 +1,24 @@
+{
+  "name": "ios-curve-interpolation",
+  "version": "1.0",
+  "summary": "Easy-to-use category for curve interpolation onto UIBezierPath",
+  "homepage": "https://github.com/kirualex/ios-curve-interpolation",
+  "authors": {
+    "John Fisher": "https://github.com/jnfisher",
+    "Alexis Creuzot": "http://alexiscreuzot.com"
+  },
+  "license": {
+    "type": "MIT"
+  },
+  "source": {
+    "git": "https://github.com/ojingolabs/wandkunst.git"
+  },
+  "requires_arc": true,
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": [
+    "CGPointExtension.{h,m}",
+    "UIBezierPath+Interpolation.{h,m}"
+  ]
+}

@@ -1,0 +1,6 @@
+framework module Pods_polarchart {
+  umbrella header "Pods-polarchart-umbrella.h"
+
+  export *
+  module * { export * }
+}

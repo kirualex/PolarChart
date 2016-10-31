@@ -1,0 +1,6 @@
+framework module ios_curve_interpolation {
+  umbrella header "ios-curve-interpolation-umbrella.h"
+
+  export *
+  module * { export * }
+}

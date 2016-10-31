@@ -1,0 +1,29 @@
+PODS:
+  - ios-curve-interpolation (1.0)
+  - JNWSpringAnimation (0.7.1)
+
+DEPENDENCIES:
+  - ios-curve-interpolation (from `https://github.com/kirualex/ios-curve-interpolation`)
+  - JNWSpringAnimation (from `https://github.com/jwilling/JNWSpringAnimation`)
+
+EXTERNAL SOURCES:
+  ios-curve-interpolation:
+    :git: https://github.com/kirualex/ios-curve-interpolation
+  JNWSpringAnimation:
+    :git: https://github.com/jwilling/JNWSpringAnimation
+
+CHECKOUT OPTIONS:
+  ios-curve-interpolation:
+    :commit: 04a68125d59204ae4e7d753c8115b4c401f67903
+    :git: https://github.com/kirualex/ios-curve-interpolation
+  JNWSpringAnimation:
+    :commit: fa26274b05d0658ad56001c9cf0626e2d2879595
+    :git: https://github.com/jwilling/JNWSpringAnimation
+
+SPEC CHECKSUMS:
+  ios-curve-interpolation: 7af61efcc3bebc58d07a551f8444d434e7055a4e
+  JNWSpringAnimation: cd4c2f4464324f63f176c3624ffccf205211a100
+
+PODFILE CHECKSUM: 37465e02ede15dc64ed09b70f0c193632e16dcc0
+
+COCOAPODS: 1.0.1
