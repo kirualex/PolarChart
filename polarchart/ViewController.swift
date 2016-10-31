@@ -38,8 +38,8 @@ class ViewController: UIViewController {
         let randomIndex = Int(arc4random_uniform(UInt32(colors.count)))
         let randomIndex2 = Int(arc4random_uniform(UInt32(colors.count)))
 
-        polarForm.colors = [colors[randomIndex].withAlphaComponent(0.8).cgColor,
-                            colors[randomIndex2].withAlphaComponent(0.8).cgColor]
+        polarForm.colors = [colors[randomIndex].withAlphaComponent(0.8),
+                            colors[randomIndex2].withAlphaComponent(0.8)]
         polarView.polarForms = [polarForm]
 
         polarView.refresh()

@@ -152,7 +152,7 @@ public class PolarView: UIView {
 
             // Forms
             formLayer.frame = self.bounds
-            formLayer.colors = form.colors
+            formLayer.colors = form.colors.map {$0.cgColor}
             formLayerMask.path = formPath.cgPath
             formLayer.setNeedsDisplay()
 
