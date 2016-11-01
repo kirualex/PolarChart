@@ -23,8 +23,14 @@ public enum TouchMode {
 public class PolarView: UIView {
 
     public var touchMode: TouchMode = .Inspect
-    public var nbLevels: UInt = 4
-    public var nbRays: UInt = 6
+    public var nbLevels: UInt = 0
+    public var nbRays: UInt = 0 {
+        didSet {
+            if self.polarForm.polarPoints.count != Int(nbRays) {
+                self.resetForm()
+            }
+        }
+    }
     public var circleColor = UIColor.black
     public var rayColor = UIColor.black
     public var pointColor = UIColor.red
@@ -33,7 +39,7 @@ public class PolarView: UIView {
     public var curveType: CurveType = .rounded(roundness: 0)
 
     public var polarPoints = [PolarPoint]()
-    public var polarForms = [PolarForm]()
+    public var polarForm = PolarForm(polarPoints: [])
     public var inspectPoint: PolarPoint?
 
     private var circles = [UIBezierPath]()
@@ -54,6 +60,10 @@ public class PolarView: UIView {
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    public override func awakeFromNib() {
+        super.awakeFromNib()
 
         self.layer.addSublayer(formLayer)
         formLayer.mask = formLayerMask
@@ -66,6 +76,15 @@ public class PolarView: UIView {
     // MARK - Layout
 
     override public func layoutSubviews() {
+        self.refresh()
+    }
+
+    public func resetForm() {
+        var formPoints = [PolarPoint]()
+        for i in 0...UInt(nbRays-1) {
+            formPoints.append(PolarPoint(level: 0, ray: i))
+        }
+        self.polarForm.polarPoints = formPoints
         self.refresh()
     }
 
@@ -85,7 +104,7 @@ public class PolarView: UIView {
                                            endAngle: 2 * CGFloat.pi,
                                            clockwise: true)
 
-//            self.dottedStrokeFor(path: circle, dotSize: 1, dotSpacing: 3)
+            //            self.dottedStrokeFor(path: circle, dotSize: 1, dotSpacing: 3)
 
             circles.append(circle)
         }
@@ -104,7 +123,7 @@ public class PolarView: UIView {
             ray.addLine(to: CGPoint(x: x, y: y))
             ray.close()
 
-//            self.dottedStrokeFor(path: ray, dotSize: 1, dotSpacing: 3)
+            //            self.dottedStrokeFor(path: ray, dotSize: 1, dotSpacing: 3)
 
             rays.append(ray)
         }
@@ -121,14 +140,13 @@ public class PolarView: UIView {
         }
 
         // PolarForms
-        for form in polarForms where form.isValidFor(polarView: self){
-
+        if self.polarForm.isValidFor(polarView: self){
             let startPath = formLayerMask.path
             formLayerMask.lineWidth = 0
             var formPath = UIBezierPath()
 
             // get points as nsvalues
-            let pointValues = form.polarPoints.map { (p:PolarPoint) -> NSValue in
+            let pointValues = self.polarForm.polarPoints.map { (p:PolarPoint) -> NSValue in
                 let cgp = p.intersectionCoordinateFor(polarView: self)
                 return NSValue(cgPoint: cgp)
             }
@@ -141,9 +159,9 @@ public class PolarView: UIView {
                 break
             case .rounded(let roundness) :
                 formLayerMask.lineWidth = CGFloat(roundness)
-                let firstPoint = form.polarPoints.first!
+                let firstPoint = self.polarForm.polarPoints.first!
                 formPath.move(to: firstPoint.intersectionCoordinateFor(polarView: self))
-                for p in form.polarPoints {
+                for p in self.polarForm.polarPoints {
                     formPath.addLine(to: p.intersectionCoordinateFor(polarView: self))
                 }
                 formPath.close()
@@ -152,34 +170,32 @@ public class PolarView: UIView {
 
             // Forms
             formLayer.frame = self.bounds
-            formLayer.colors = form.colors.map {$0.cgColor}
+            formLayer.colors = self.polarForm.colors.map {$0.cgColor}
             formLayerMask.path = formPath.cgPath
-            formLayer.setNeedsDisplay()
 
-            // Forms animation
             CATransaction.begin()
             CATransaction.setCompletionBlock({
                 self.animating = false
             })
-            animating = true
+            // Forms animation
             let anim = CABasicAnimation(keyPath: "path")
             anim.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
             anim.duration = 0.25
             anim.fromValue = startPath
-            anim.isAdditive = true
             anim.toValue = formLayerMask.path
-            anim.isRemovedOnCompletion = true
             formLayerMask.add(anim, forKey: "pathAnim")
+            animating = true
+            CATransaction.commit()
 
             // Inspect point
             if let ip = self.inspectPoint {
                 inspectPointLayer.frame = self.bounds
                 inspectPointLayer.backgroundColor = self.inspectPointColor.cgColor
                 inspectPointLayerMask.path = UIBezierPath.init(arcCenter: ip.intersectionCoordinateFor(polarView: self),
-                                                         radius: self.inspectPointRadius,
-                                                         startAngle: 0,
-                                                         endAngle: 2 * CGFloat.pi,
-                                                         clockwise: true).cgPath
+                                                               radius: self.inspectPointRadius,
+                                                               startAngle: 0,
+                                                               endAngle: 2 * CGFloat.pi,
+                                                               clockwise: true).cgPath
             }else {
                 inspectPointLayer.frame = CGRect(x: 0,y: 0, width: 0, height: 0)
             }
@@ -192,10 +208,9 @@ public class PolarView: UIView {
                 pointsPath.append(pp.path)
             }
             pointsLayerMask.path = pointsPath.cgPath
-
-            CATransaction.commit()
         }
 
+        formLayer.setNeedsDisplay()
         self.setNeedsDisplay()
     }
 
@@ -280,30 +295,26 @@ public class PolarView: UIView {
         }
 
         // Update form
-        if let form = self.polarForms.first {
-            for p in form.polarPoints {
-                if  polarp.ray == p.ray &&
-                    polarp.level != p.level {
-                    p.level = polarp.level
-                    self.refresh()
-                    return
-                }
+        for p in self.polarForm.polarPoints {
+            if  polarp.ray == p.ray &&
+                polarp.level != p.level {
+                p.level = polarp.level
+                self.refresh()
+                return
             }
         }
     }
 
     func highlightFromTouchAt(point: CGPoint) {
         let polarp = point.toPolarPointFor(polarView: self)
-
+        
         // Highlight point on form
-        if let form = self.polarForms.first {
-            for p in form.polarPoints {
-                if  polarp.ray == p.ray {
-                    polarp.level = p.level
-                    self.inspectPoint = polarp
-                    self.refresh()
-                    return
-                }
+        for p in self.polarForm.polarPoints {
+            if  polarp.ray == p.ray {
+                polarp.level = p.level
+                self.inspectPoint = polarp
+                self.refresh()
+                return
             }
         }
     }

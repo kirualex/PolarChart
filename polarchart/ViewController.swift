@@ -18,11 +18,18 @@ class ViewController: UIViewController {
         polarView.nbLevels = 6
         polarView.nbRays = 12
         polarView.curveType = .hermite
-
         polarView.circleColor = UIColor.gray
         polarView.rayColor = UIColor.gray
 
-        self.randomizeForm()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+           self.randomizeForm()
+        }
     }
 
     @IBAction func randomizeForm() {
@@ -40,7 +47,7 @@ class ViewController: UIViewController {
 
         polarForm.colors = [colors[randomIndex].withAlphaComponent(0.8),
                             colors[randomIndex2].withAlphaComponent(0.8)]
-        polarView.polarForms = [polarForm]
+        polarView.polarForm = polarForm
 
         polarView.refresh()
     }

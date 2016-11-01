@@ -26,11 +26,8 @@ class RadialGradientLayer: CALayer {
             locations.append(CGFloat(i) / CGFloat(colors.count))
         }
         let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: locations)
-
         let center = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
         let radius = min(bounds.width / 2.0, bounds.height / 2.0)
-
         ctx.drawRadialGradient(gradient!, startCenter: center, startRadius: 0.0, endCenter: center, endRadius: radius, options: CGGradientDrawingOptions(rawValue: 0))
     }
-    
 }
