@@ -18,6 +18,17 @@ public class PolarPoint: NSObject {
         self.ray = ray
     }
 
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let p = object as? PolarPoint else {
+            return false
+        }
+        return p.level == level && p.ray == ray
+    }
+
+    public override var description: String {
+        return "PolarPoint(level: \(level), ray: \(ray))"
+    }
+
     func intersectionCoordinateFor(polarView: PolarView) -> CGPoint {
 
         var curRadius = CGFloat(level)/CGFloat(polarView.nbLevels) * polarView.radius

@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var polarTypeControl: UISegmentedControl!
     @IBOutlet private var polarView: PolarView!
 
     override func viewDidLoad() {
@@ -20,16 +22,13 @@ class ViewController: UIViewController {
         polarView.curveType = .hermite
         polarView.circleColor = UIColor.gray
         polarView.rayColor = UIColor.gray
+        polarView.delegate = self
 
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-           self.randomizeForm()
-        }
+        self.randomizeForm()
     }
 
     @IBAction func randomizeForm() {
@@ -52,6 +51,24 @@ class ViewController: UIViewController {
         polarView.refresh()
     }
 
-
+    @IBAction func onTypeChange(segmentControl: UISegmentedControl) {
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            self.polarView.touchMode = .Inspect
+        default:
+            self.polarView.touchMode = .Modify
+        }
+    }
 }
 
+extension ViewController: PolarViewDelegate {
+
+    func polarView(polarView: PolarView, didInspect point: PolarPoint) {
+        print("PolarView didInspect \(point)")
+    }
+
+    func polarView(polarView: PolarView, didModify previousPoint: PolarPoint, to point: PolarPoint) {
+        print("PolarView didModify \(previousPoint) to: \(point)")
+    }
+
+}

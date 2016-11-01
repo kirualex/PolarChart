@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11521.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,10 +21,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PolarChart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48P-Iy-Qhf">
+                                <rect key="frame" x="16" y="28" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5v6-L0-HcX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="apr-di-PfU">
+                                <rect key="frame" x="128" y="82" width="119" height="29"/>
+                                <segments>
+                                    <segment title="Inspect"/>
+                                    <segment title="Modify"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onTypeChangeWithSegmentControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="80F-Az-ME6"/>
+                                </connections>
+                            </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUK-29-1x0" customClass="PolarView" customModule="polarchart" customModuleProvider="target">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="10" y="130" width="355" height="450"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.19568707191780821" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHh-hl-BBY">
+                                <rect key="frame" x="16" y="597" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.29411764709999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="awT-Dg-PmU"/>
@@ -38,21 +62,28 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="NHh-hl-BBY" firstAttribute="top" secondItem="YUK-29-1x0" secondAttribute="bottom" constant="17" id="9ge-fO-OqC"/>
+                            <constraint firstItem="apr-di-PfU" firstAttribute="top" secondItem="48P-Iy-Qhf" secondAttribute="bottom" constant="4" id="DbQ-8P-UG5"/>
+                            <constraint firstItem="apr-di-PfU" firstAttribute="centerX" secondItem="48P-Iy-Qhf" secondAttribute="centerX" id="MlX-aE-cgX"/>
                             <constraint firstItem="NHh-hl-BBY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="N89-kw-34e"/>
-                            <constraint firstAttribute="topMargin" secondItem="YUK-29-1x0" secondAttribute="top" constant="-30" id="dgT-yh-b4l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="48P-Iy-Qhf" secondAttribute="trailing" id="O60-PC-SRk"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="48P-Iy-Qhf" secondAttribute="leading" id="UDD-lH-8Yw"/>
                             <constraint firstAttribute="trailing" secondItem="NHh-hl-BBY" secondAttribute="trailing" constant="16" id="fvg-pW-VTK"/>
+                            <constraint firstItem="YUK-29-1x0" firstAttribute="top" secondItem="apr-di-PfU" secondAttribute="bottom" constant="20" id="sia-s6-bng"/>
                             <constraint firstAttribute="trailing" secondItem="YUK-29-1x0" secondAttribute="trailing" constant="10" id="tX4-Kw-LRE"/>
+                            <constraint firstItem="48P-Iy-Qhf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="28" id="tn2-dp-AEA"/>
                             <constraint firstAttribute="bottomMargin" secondItem="NHh-hl-BBY" secondAttribute="bottom" constant="20" id="wPC-sP-g6E"/>
                             <constraint firstItem="YUK-29-1x0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="xkR-b8-H7a"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="polarTypeControl" destination="apr-di-PfU" id="Jgq-L1-IIR"/>
                         <outlet property="polarView" destination="YUK-29-1x0" id="bLN-C6-dKG"/>
+                        <outlet property="titleLabel" destination="48P-Iy-Qhf" id="h3E-Mq-QPF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="141.59999999999999" y="162.3688155922039"/>
         </scene>
     </scenes>
 </document>

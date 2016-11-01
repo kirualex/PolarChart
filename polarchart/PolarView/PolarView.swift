@@ -20,7 +20,14 @@ public enum TouchMode {
     case Inspect
 }
 
+@objc public protocol PolarViewDelegate {
+    @objc optional func polarView(polarView: PolarView, didModify previousPoint: PolarPoint, to point: PolarPoint)
+    @objc optional func polarView(polarView: PolarView, didInspect point: PolarPoint)
+}
+
 public class PolarView: UIView {
+
+    public var delegate: PolarViewDelegate?
 
     public var touchMode: TouchMode = .Inspect
     public var nbLevels: UInt = 0
@@ -267,7 +274,6 @@ public class PolarView: UIView {
                 self.highlightFromTouchAt(point: t.location(in: self))
                 break
             }
-
         }
     }
 
@@ -298,8 +304,10 @@ public class PolarView: UIView {
         for p in self.polarForm.polarPoints {
             if  polarp.ray == p.ray &&
                 polarp.level != p.level {
+                let previousPoint = PolarPoint(level: p.level, ray: p.ray)
                 p.level = polarp.level
                 self.refresh()
+                self.delegate?.polarView?(polarView: self, didModify:previousPoint, to:p)
                 return
             }
         }
@@ -312,8 +320,13 @@ public class PolarView: UIView {
         for p in self.polarForm.polarPoints {
             if  polarp.ray == p.ray {
                 polarp.level = p.level
-                self.inspectPoint = polarp
-                self.refresh()
+
+                if !polarp.isEqual(self.inspectPoint) {
+                    self.inspectPoint = polarp
+                    self.refresh()
+                    self.delegate?.polarView?(polarView: self, didInspect: polarp)
+                }
+
                 return
             }
         }
